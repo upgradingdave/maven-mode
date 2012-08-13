@@ -1,0 +1,28 @@
+* maven-mode
+
+  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
+
+** Keybindings
+
+   All keybindings in maven-mode start with `C-c m` and then a two
+   letter nmemonic shortcut
+
+*** `s` : search-maven-repo
+
+** Development
+
+   To fetch test dependencies: 
+
+#+begin_src sh
+cd /path/to/maven-mode
+git submodule init
+git submodule update
+#+end_src   
+
+   Run the tests with: 
+
+#+begin_src sh
+./util/ecukes/ecukes
+#+end_src
+
+
