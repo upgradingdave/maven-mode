@@ -24,7 +24,7 @@
  )
 
 (Before
- (switch-to-buffer (get-buffer-create "*maven-mode*"))
+ (switch-to-buffer (get-buffer-create "*maven-unit-test*"))
  (erase-buffer)
  (transient-mark-mode 1)
  (cua-mode 0)

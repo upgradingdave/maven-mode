@@ -1,14 +1,21 @@
 * maven-mode
 
-  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
+  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] fun.
+
+** Credits
+
+   Thanks to emacsrocks.com for inspiring me to try and write a emacs minor
+   mode. 
 
 ** Keybindings
 
    All keybindings in maven-mode start with `C-c m` and then a two
    letter nmemonic shortcut
 
-   - `s`: search-maven-org Perform a  search on search.maven.org for
-     an artifact
+   - `s` :: (mvn-search-maven <term>) Perform a search on search.maven.org for
+            an artifact
+   - `d` :: (mvn-search-versions <groupId:artifacId>) Get a list of
+            all versions of an artifact
 
 ** Development
 
