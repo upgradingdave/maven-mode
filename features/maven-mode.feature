@@ -3,8 +3,10 @@ Feature: Search Maven Repository
   As a maven user using emacs
   I want to easily search for and find dependencies from maven repo
   
-  Scenario: Prompt for search
-    When I press "C-c m s"
+  Scenario: Search search.maven.org for jsoup
+    When I turn on maven-mode
+    And I start an action chain 
+    And I press "C-c m s"
     And I type "jsoup"
-    Then I should see "jsoup:1.0-VERSION"
-
+    And I execute the action chain
+    Then I should see "org.jsoup:jsoup"

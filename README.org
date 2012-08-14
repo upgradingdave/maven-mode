@@ -7,7 +7,8 @@
    All keybindings in maven-mode start with `C-c m` and then a two
    letter nmemonic shortcut
 
-*** `s` : search-maven-repo
+   - `s`: search-maven-org Perform a  search on search.maven.org for
+     an artifact
 
 ** Development
 
@@ -24,5 +25,4 @@ git submodule update
 #+begin_src sh
 ./util/ecukes/ecukes
 #+end_src
-
 
