@@ -12,10 +12,9 @@
    All keybindings in maven-mode start with `C-c m` and then a two
    letter nmemonic shortcut
 
-   - `s` :: (mvn-search-maven <term>) Perform a search on search.maven.org for
-            an artifact
-   - `d` :: (mvn-search-versions <groupId:artifacId>) Get a list of
-            all versions of an artifact
+   - `sd` (search dependencies) :: Perform a search against
+        http://search.maven.org for an artifact, choose artifact from
+        results, then choose a version insert dependency xml
 
 ** Development
 
@@ -33,3 +32,61 @@ git submodule update
 ./util/ecukes/ecukes
 #+end_src
 
+** Known issues
+
+*** ecukes doens't seem to work when chaining completing-read functions 
+
+    https://github.com/rejeep/ecukes/issues/68
+
+    When espuds executes an action chain, it runs `execute-kbd-macro`
+
+    In my case, I needed to test that a user enters some search text,
+    then choose from options in minibuffer, and then choose again from
+    more options. 
+
+    For example: 
+
+    Scenario: Search maven with completing help
+    Given I turn on maven-mode
+    When I start an action chain
+    And I press "C-c m s c"
+    And I type "log4j"
+    And I execute the action chain
+    Then I should see:
+    """
+    <dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.1.3</version>
+    </dependency>
+    """
+
+    espuds-input appeared to be generating a kbd macro like this: 
+    [3 109 115 99 108 111 103 52 106 13 108 111 103 52 106 13 49 46 50
+    46 49 55 13]
+
+    But, when I test this by running:
+    
+    (execute-kbd-macro '[3 109 115 99 108 111 103 52 106 13 108 111 103 52 106 13 49 46 50
+    46 49 55 13])
+
+    I'm not sure exactly why, but it doesn't quite do what I expect 
+
+    Seems that RET is translated to ?\^M which is character code 13
+
+    If I replace char code 13 with a return symbol, it seems to work: 
+
+    (execute-kbd-macro '[3 109 115 99 108 111 103 52 106 return 108 111 103 52 106 return 49 46 50
+    46 49 55 return])
+
+    
+
+    
+
+
+    
+    
+
+   
+
+   
