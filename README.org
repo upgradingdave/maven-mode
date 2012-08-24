@@ -1,6 +1,6 @@
 * maven-mode
 
-  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] fun.
+  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
 
 ** Credits
 
@@ -12,10 +12,14 @@
    All keybindings in maven-mode start with `C-c m` and then a two
    letter nmemonic shortcut
 
-   - `s` :: (mvn-search-maven <term>) Perform a search on search.maven.org for
-            an artifact
-   - `d` :: (mvn-search-versions <groupId:artifacId>) Get a list of
-            all versions of an artifact
+   - `ds` (dependency search) :: Perform a search against
+        http://search.maven.org for an artifact, choose artifact from
+        results, then choose a version, and then the dependency xml is
+        generated and inserted into current buffer.
+   - `dx` (depenedency xml) :: Good for when you know the groupId,
+        artifactId and version and want to generate the dependency xml
+        snippet. For example, enter `log4j:log4j:1.2.17` to generate
+        dependency xml and insert it into current buffer.
 
 ** Development
 
@@ -27,9 +31,19 @@ git submodule init
 git submodule update
 #+end_src   
 
-   Run the tests with: 
+   Run the tests with ecukes. Currently, if you run ecukes in the
+   terminal, the features don't work for some reason. But if you run
+   inside current emacs, they work fine. 
 
-#+begin_src sh
-./util/ecukes/ecukes
+#+begin_src elisp
+(add-to-list 'load-path "/path/to/ecukes")
+(require 'ecukes)
 #+end_src
 
+   Then, open any file inside this maven-mode project and run `M-x ecukes`
+
+** ideas for improvements
+
+   - Add functionality to find pom.xml and find depenedency section
+     and add dependencies in there (maybe by alphabetical order on artifactid?)
+  
