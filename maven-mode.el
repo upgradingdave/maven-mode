@@ -41,7 +41,15 @@
 (defun mvn-search-completing (search-term)
   "Do search, then choose groupId, then choose version"
   (interactive "MSearch: ")
-  (mvn-insert-dependency-xml (mvn-search-completing-versions (mvn-search-completing-groupIds search-term))))
+  (mvn-insert-dependency-xml (mvn-search-completing-versions 
+                              (mvn-search-completing-groupIds search-term))))
+
+(defun mvn-enable-mode ()
+  "Enable maven-mode if current buffer is pom.xml"
+  (if (string-match "pom\\.xml" (buffer-file-name))
+      (maven-mode t)))
+
+(add-hook 'find-file-hook 'mvn-enable-mode)
 
 ;;;; api 
 
@@ -110,7 +118,8 @@
 (defun mvn-get-search-json (search-term)
   "Get json with list of results"
   (mvn-get-json 
-   (concat mvn-search-maven-org-url "/solrsearch/select?q=%22" search-term "%22&rows=20&wt=json")))
+   (concat mvn-search-maven-org-url "/solrsearch/select?q=%22" 
+           search-term "%22&rows=20&wt=json")))
 
 (defun mvn-get-version-json (groupId artifactId)
   "Get json with details for groupId"
@@ -132,6 +141,7 @@
   "Takes json from search and returns list of artifacts"
   (let ((json-object-type 'alist))
     (cdr (assoc 'docs (assoc 'response (json-read-from-string json))))))
+
 
 ;;;; Getters
 
@@ -173,5 +183,3 @@
   maven-mode-map)
 
 (provide 'maven-mode)
-
-

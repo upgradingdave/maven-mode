@@ -17,7 +17,6 @@ Feature: Search Maven Repository
       <version>1.1.3</version>
     </dependency>
     """
-
   Scenario: Search maven with completing help
     Given I turn on maven-mode
     When I start an action chain
@@ -36,3 +35,7 @@ Feature: Search Maven Repository
       <version>1.2.17</version>
     </dependency>
     """
+
+  Scenario: Enable maven minor mode when visiting pom.xml
+    When I open temp file "pom.xml"
+    Then maven-mode should be active

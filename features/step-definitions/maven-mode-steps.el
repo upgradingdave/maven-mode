@@ -12,10 +12,9 @@
         ;; Do something
         ))
 
-(Then "^I should have \"\\(.+\\)\"$"
-      (lambda (something)
-        ;; Do something
-        ))
+(Then "^maven-mode should be active$"
+      (lambda ()
+        (assert (eq maven-mode t))))
 
 (And "^I have \"\\(.+\\)\"$"
      (lambda (something)
