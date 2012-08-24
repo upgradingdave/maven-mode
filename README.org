@@ -1,6 +1,6 @@
 * maven-mode
 
-  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] fun.
+  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
 
 ** Credits
 
@@ -12,9 +12,14 @@
    All keybindings in maven-mode start with `C-c m` and then a two
    letter nmemonic shortcut
 
-   - `sd` (search dependencies) :: Perform a search against
+   - `ds` (dependency search) :: Perform a search against
         http://search.maven.org for an artifact, choose artifact from
-        results, then choose a version insert dependency xml
+        results, then choose a version, and then the dependency xml is
+        generated and inserted into current buffer.
+   - `dx` (depenedency xml) :: Good for when you know the groupId,
+        artifactId and version and want to generate the dependency xml
+        snippet. For example, enter `log4j:log4j:1.2.17` to generate
+        dependency xml and insert it into current buffer.
 
 ** Development
 
@@ -26,67 +31,19 @@ git submodule init
 git submodule update
 #+end_src   
 
-   Run the tests with: 
+   Run the tests with ecukes. Currently, if you run ecukes in the
+   terminal, the features don't work for some reason. But if you run
+   inside current emacs, they work fine. 
 
-#+begin_src sh
-./util/ecukes/ecukes
+#+begin_src elisp
+(add-to-list 'load-path "/path/to/ecukes")
+(require 'ecukes)
 #+end_src
 
-** Known issues
+   Then, open any file inside this maven-mode project and run `M-x ecukes`
 
-*** ecukes doens't seem to work when chaining completing-read functions 
+** ideas for improvements
 
-    https://github.com/rejeep/ecukes/issues/68
-
-    When espuds executes an action chain, it runs `execute-kbd-macro`
-
-    In my case, I needed to test that a user enters some search text,
-    then choose from options in minibuffer, and then choose again from
-    more options. 
-
-    For example: 
-
-    Scenario: Search maven with completing help
-    Given I turn on maven-mode
-    When I start an action chain
-    And I press "C-c m s c"
-    And I type "log4j"
-    And I execute the action chain
-    Then I should see:
-    """
-    <dependency>
-    <groupId>log4j</groupId>
-    <artifactId>log4j</artifactId>
-    <version>1.1.3</version>
-    </dependency>
-    """
-
-    espuds-input appeared to be generating a kbd macro like this: 
-    [3 109 115 99 108 111 103 52 106 13 108 111 103 52 106 13 49 46 50
-    46 49 55 13]
-
-    But, when I test this by running:
-    
-    (execute-kbd-macro '[3 109 115 99 108 111 103 52 106 13 108 111 103 52 106 13 49 46 50
-    46 49 55 13])
-
-    I'm not sure exactly why, but it doesn't quite do what I expect 
-
-    Seems that RET is translated to ?\^M which is character code 13
-
-    If I replace char code 13 with a return symbol, it seems to work: 
-
-    (execute-kbd-macro '[3 109 115 99 108 111 103 52 106 return 108 111 103 52 106 return 49 46 50
-    46 49 55 return])
-
-    
-
-    
-
-
-    
-    
-
-   
-
-   
+   - Add functionality to find pom.xml and find depenedency section
+     and add dependencies in there (maybe by alphabetical order on artifactid?)
+  

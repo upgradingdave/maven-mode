@@ -18,23 +18,21 @@ Feature: Search Maven Repository
     </dependency>
     """
 
-  # See issue https://github.com/rejeep/ecukes/issues/68  
-  # Scenario: Search maven with completing help
-  #   Given I turn on maven-mode
-  #   When I start an action chain
-  #   And I press "C-c m sc"
-  #   And I type "log4j"
-  #   And I press "RET"
-  #   And I type "log4j"
-  #   And I press "RET"
-  #   And I type "1.2.17"
-  #   And I press "RET"
-  #   And I execute the action chain
-  #   Then I should see:
-  #   """
-  #   <dependency>
-  #     <groupId>log4j</groupId>
-  #     <artifactId>log4j</artifactId>
-  #     <version>1.2.17</version>
-  #   </dependency>
-  #   """
+  Scenario: Search maven with completing help
+    Given I turn on maven-mode
+    When I start an action chain
+    And I press "C-c m ds"
+    And I type "log4j"
+    And I press "RET"
+    And I press "RET"
+    And I type "1.2.17"
+    And I press "RET"
+    And I execute the action chain
+    Then I should see:
+    """
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    """

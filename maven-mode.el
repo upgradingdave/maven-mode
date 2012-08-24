@@ -161,10 +161,10 @@
   "maven-mode keymap")
 
 (define-key maven-mode-map 
-  (kbd "C-c m sd") 'mvn-search-completing)
+  (kbd "C-c m ds") 'mvn-search-completing)
 
 (define-key maven-mode-map 
-  (kbd "C-c m dx") 'mvn-search-completing)
+  (kbd "C-c m dx") 'mvn-insert-dependency-xml)
 
 (define-minor-mode maven-mode
   "Maven Mode"
