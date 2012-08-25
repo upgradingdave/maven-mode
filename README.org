@@ -2,6 +2,8 @@
 
   maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
 
+  Watch the [[http://javajing.com/2012/08/25/emacs-maven-mode.html][JavaJing Emacs Maven Mode Demo]] for a quick overview. 
+  
 ** Credits
 
    Thanks to emacsrocks.com for inspiring me to try and write a emacs minor
