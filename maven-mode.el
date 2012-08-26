@@ -78,19 +78,6 @@
                   (mvn-json-to-vector (mvn-get-version-json groupId artifactId)))))
     (completing-read "Choose Version: " versions nil t coord)))
 
-;; (defun mvn-test-completing (search-term)
-;;   (interactive "MSearch: ")
-;;   (insert
-;;    (completing-read "Choose Version: "
-;;     '("foo-1.0" "foo-2.0" "bar-2.0" "bar-3.0") nil t 
-;; (completing-read "Choose Lib: " '("foo" "bar" "baz") nil t  search-term))))
-
-;; (defun mvn-test-completing (search-term)
-;;   (interactive "MSearch: ")
-;;   (insert
-;;    (completing-read "Choose Version: "
-;;     '("foo-1.0" "foo-2.0" "bar-2.0" "bar-3.0") nil t search-term)))
-
 (defun mvn-insert-dependency-xml (coord)
   "Generate the dependency xml to insert into pom for coord <groupId:artifactId:version>"
   (interactive "MGroupId:ArtifactId:Version: ")
@@ -118,14 +105,16 @@
 (defun mvn-get-search-json (search-term)
   "Get json with list of results"
   (mvn-get-json 
-   (concat mvn-search-maven-org-url "/solrsearch/select?q=%22" 
-           search-term "%22&rows=20&wt=json")))
+   (url-generic-parse-url 
+    (concat mvn-search-maven-org-url "/solrsearch/select?q=\"" 
+            search-term "\"&rows=20&wt=json"))))
 
 (defun mvn-get-version-json (groupId artifactId)
   "Get json with details for groupId"
   (mvn-get-json 
-   (concat mvn-search-maven-org-url "/solrsearch/select?q=g:%22" groupId 
-           "%22+AND+a:%22" artifactId "%22&core=gav&rows=20&wt=json")))
+   (url-generic-parse-url
+    (concat mvn-search-maven-org-url "/solrsearch/select?q=g:\"" groupId 
+            "\"+AND+a:\"" artifactId "\"&core=gav&rows=20&wt=json"))))
 
 (defun mvn-get-json (url)
   "Make a request, get response, strip response headers, pass back json"
