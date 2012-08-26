@@ -83,7 +83,8 @@
   (interactive "MGroupId:ArtifactId:Version: ")
   (let ((groupId (car (split-string coord ":")))
         (artifactId (cadr (split-string coord ":")))
-        (version (caddr (split-string coord ":"))))
+        (version (caddr (split-string coord ":")))
+        (start (point)))
     (insert
      (message
       (concat "<dependency>\n" 
@@ -91,7 +92,8 @@
               "  <artifactId>%s</artifactId>\n"
               "  <version>%s</version>\n"
               "</dependency>\n")
-      groupId artifactId version))))
+      groupId artifactId version))
+    (indent-region start (point))))
 
 ;;; buffer management
 
