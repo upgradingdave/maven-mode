@@ -8,14 +8,14 @@
        (project-directory
         (file-name-directory
          (directory-file-name features-directory))))
-  (setq maven-mode-root-path project-directory)
-  (setq maven-mode-util-path (expand-file-name "util" maven-mode-root-path)))
+  (setq mvn-mode-root-path project-directory)
+  (setq mvn-mode-util-path (expand-file-name "util" mvn-mode-root-path)))
 
-(add-to-list 'load-path maven-mode-root-path)
-(add-to-list 'load-path (expand-file-name "espuds" maven-mode-util-path))
-(add-to-list 'load-path (expand-file-name "ert" maven-mode-util-path))
+(add-to-list 'load-path mvn-mode-root-path)
+(add-to-list 'load-path (expand-file-name "espuds" mvn-mode-util-path))
+(add-to-list 'load-path (expand-file-name "ert" mvn-mode-util-path))
 
-(require 'maven-mode)
+(require 'mvn-mode)
 (require 'espuds)
 (require 'ert)
 
@@ -28,7 +28,7 @@
  (erase-buffer)
  (transient-mark-mode 1)
  (cua-mode 0)
- (maven-mode 0)
+ (mvn-mode 0)
  (setq set-mark-default-inactive nil)
  (deactivate-mark))
 

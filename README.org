@@ -1,14 +1,9 @@
 * maven-mode
 
-  maven-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
+  mvn-mode is a mode for emacs to make working with [[http://maven.apache.org][maven]] more fun.
 
   Watch the [[http://javajing.com/2012/08/25/emacs-maven-mode.html][JavaJing Emacs Maven Mode Demo]] for a quick overview. 
   
-** Credits
-
-   Thanks to emacsrocks.com for inspiring me to try and write a emacs minor
-   mode. 
-
 ** Keybindings
 
    All keybindings in maven-mode start with `C-c m` and then a two
@@ -22,10 +17,14 @@
         artifactId and version and want to generate the dependency xml
         snippet. For example, enter `log4j:log4j:1.2.17` to generate
         dependency xml and insert it into current buffer.
+   - `do` (depenedency order) :: All dependencies (including
+        dependencies inside dependencyManagement section) will be
+        sorted alphabetically first by groupid, and then by
+        artifactid. Dependencies with scope "test" are put first.
 
 ** Development
 
-   To fetch test dependencies: 
+*** Fetch submodules
 
 #+begin_src sh
 cd /path/to/maven-mode
@@ -33,19 +32,39 @@ git submodule init
 git submodule update
 #+end_src   
 
-   Run the tests with ecukes. Currently, if you run ecukes in the
-   terminal, the features don't work for some reason. But if you run
-   inside current emacs, they work fine. 
+*** Run ert tests to unit test
+
+    Make sure to run `ert` from within test directory.
+
+#+begin_src elisp
+(require 'mvn-mode-tests)
+(ert "^mvn-")
+#+end_src    
+
+*** Run features to test high level api
+
+    Run the features with ecukes. Currently, if you run ecukes in the
+    terminal, the features don't work for some reason. But if you run
+    inside current emacs, they work fine. 
 
 #+begin_src elisp
 (add-to-list 'load-path "/path/to/ecukes")
 (require 'ecukes)
 #+end_src
 
-   Then, open any file inside this maven-mode project and run `M-x ecukes`
+   Then, open any file inside this maven-mode project and run `M-x
+   ecukes`
+
+** Credits
+
+   Thanks to emacsrocks.com for inspiring me to try and write a emacs minor
+   mode. 
 
 ** ideas for improvements
 
    - Add functionality to find pom.xml and find depenedency section
-     and add dependencies in there (maybe by alphabetical order on artifactid?)
-  
+     and add dependencies automtically in correct place
+   - Compile using maven
+   - Jump to errors: http://www.youtube.com/watch?v=U_t5vLr_jVc
+
+   - Complete as of 200120910 - Add ability to sort dependencies

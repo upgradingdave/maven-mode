@@ -4,7 +4,7 @@ Feature: Search Maven Repository
   I want to easily search for and find dependencies from maven repo
   
   Scenario: Generate and insert dependency xml snippet
-    When I turn on maven-mode
+    When I turn on mvn-mode
     And I start an action chain
     And I press "C-c m dx"
     And I type "log4j:log4j:1.1.3"
@@ -12,13 +12,13 @@ Feature: Search Maven Repository
     Then I should see:
     """
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.1.3</version>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.1.3</version>
     </dependency>
     """
   Scenario: Search maven with completing help
-    Given I turn on maven-mode
+    Given I turn on mvn-mode
     When I start an action chain
     And I press "C-c m ds"
     And I type "log4j"
@@ -30,12 +30,13 @@ Feature: Search Maven Repository
     Then I should see:
     """
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
     </dependency>
     """
 
   Scenario: Enable maven minor mode when visiting pom.xml
     When I open temp file "pom.xml"
-    Then maven-mode should be active
+    Then mvn-mode should be active
+
